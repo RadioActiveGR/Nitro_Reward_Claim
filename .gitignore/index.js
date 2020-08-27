@@ -11,7 +11,7 @@ var channel_id = ("YOUR_CHANNEL_ID")	//id du salon ou il y aura le claim faisabl
 
 
 bot.on("ready", async () => {
-  console.log("\n" + bot.user.tag + ` est pret !`)
+  console.log("\n" + bot.user.tag + ` est pret ! \n\nCreator : ytzmo#8888`)
   bot.user.setActivity(`${config_activity}`, { url: "https://www.twitch.tv/nitro", type: "STREAMING" })
 
 });
