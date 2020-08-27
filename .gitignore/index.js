@@ -1,71 +1,80 @@
 const Discord = require('discord.js');
 const bot = new Discord.Client()
 const client = new Discord.Client();
-var prefix = ">"
+
+var prefix = "YOUR_PREFIX" 	//prefix
+var config_token = ("YOUR_ACTIVITY") //activité du bot  
+var config_activity = ("YOUR_ACTIVITY") //activité du bot
+var config_id = ("YOUR_ID")	//id de l'owner
+var channel_id = ("YOUR_CHANNEL_ID")	//id du salon ou il y aura le claim faisable
+
+
 
 bot.on("ready", async () => {
   console.log("\n" + bot.user.tag + ` est pret !`)
-  bot.user.setActivity(`Nitro Evenement ©`, { url: "https://www.twitch.tv/nitro", type: "STREAMING" })
+  bot.user.setActivity(`${config_activity}`, { url: "https://www.twitch.tv/nitro", type: "STREAMING" })
 
 });
+
+
 
 bot.on("message", message => {
   user = message.mentions.users.first();
   if (message.author.bot) return;
-
   let command = message.content.split(" ")[0];
   command = command.slice(prefix.length);
   let args = message.content.split(" ").slice(1);
 
-
-  if (message.author.id !== "729986651702427729") {   return;
+  if (message.author.id !== config_id) {   return;
   } else 
 
 
+  function rasteleSembol(uzunluk, semboller) {
 
-  if (command === "concours") {
-		if(!args){
-			message.channel.send("Erreur **!**");
-		} else {
-      var giveway_embed = new Discord.MessageEmbed()
-        .setColor("#7289da")
-        .setTitle(`Nitro Game 1 mois`)
-        .setDescription("React with :tada: to enter !\n Hosted by : <@730103947603345448>")
-        .setFooter("1 winner | Ends at • 2020-08-118")
-        message.client.channels.cache.get("743839128680136835").send(giveway_embed).then(message => {
-          message.react('🎉')
-        })
+    var maske = '';
+    if (semboller.indexOf('a') > -1) maske += 'abcdefghijklmnopqrstuvwxyz';
+    if (semboller.indexOf('A') > -1) maske += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    if (semboller.indexOf('0') > -1) maske += '0123456789'; 
+    var sonuc = '';
+     
+    for (var i = uzunluk; i > 0; --i)
+    {
+    sonuc += maske[Math.floor(Math.random() * maske.length)];
+    }
+    return sonuc;
+     
+    }
 
-      
+  if (message.content.startsWith("!claim")) {
+
+    if (message.channel.type === "dm") return;
+    else {
+
+      if (message.channel.id === channel_id) {
+
+        {
+          var embed_embed = new Discord.MessageEmbed()
+            .setDescription(`**nitro envoyé à <@${message.author.id}> **`)
+            .setColor("#2f3136")
+
+          message.channel.send(embed_embed)
+          message.author.send("http://discord.gift/" + rasteleSembol(16, '0Aa'))
+
+
+
+        }
+      }
+
+
     }
   }
 
-  if (command === "proof") {
 
-      var azdazd_embed = new Discord.MessageEmbed()
-        .setColor('#2f3136')
-        .setTitle('**100% réél** <a:nitro:743878941579804712> ')
-        .setImage('https://media.discordapp.net/attachments/742165526348038165/744252054708420658/unknown.png')
-        message.client.channels.cache.get("742165525622161508").send(azdazd_embed)
-        
-
-  }
-
-
-  if (command === "send") {
-
-		let arg1 = args[0]
-		let arg2 = args.slice(1).join(	' ');
-		let member = message.mentions.members.first()
-
-		message.channel.send("**le message suivant a été envoyé :** \n > " + arg2)
-		message.client.channels.cache.get(arg1).send(arg2)
-
-    }
 
 
 
 
 });
 
-bot.login("NzMwMTAzOTQ3NjAzMzQ1NDQ4.XwSoSQ.0vnIT1y0PyPGFYPEJq1-Wb82baA")
+
+bot.login(config_token)
