@@ -3,7 +3,6 @@ const bot = new Discord.Client()
 const client = new Discord.Client();
 
 
-var prefix = "YOUR_PREFIX" 	//prefix
 var config_token = ("YOUR_TOKEN") //token du bot  
 var config_activity = ("YOUR_ACTIVITY") //activité du bot
 var config_id = ("YOUR_ID")	//id de l'owner
@@ -11,23 +10,11 @@ var channel_id = ("YOUR_CHANNEL_ID")	//id du salon ou il y aura le claim faisabl
 
 
 
-bot.on("ready", async () => {
-  console.log("\n" + bot.user.tag + ` est pret ! \n\nCreator : ytzmo#8888`)
-  bot.user.setActivity(`${config_activity}`, { url: "https://www.twitch.tv/nitro", type: "STREAMING" })
-
-});
-
-
-
 bot.on("message", message => {
+
   user = message.mentions.users.first();
   if (message.author.bot) return;
-  let command = message.content.split(" ")[0];
-  command = command.slice(prefix.length);
   let args = message.content.split(" ").slice(1);
-
-  if (message.author.id !== config_id) {   return;
-  } else 
 
 
   function rasteleSembol(uzunluk, semboller) {
@@ -45,6 +32,8 @@ bot.on("message", message => {
     return sonuc;
      
     }
+
+
 
   if (message.content.startsWith("!claim")) {
 
@@ -74,6 +63,16 @@ bot.on("message", message => {
 
 
 
+
+});
+
+
+
+
+
+bot.on("ready", async () => {
+  console.log("\n" + bot.user.tag + ` est pret ! \n\nCreator : ytzmo#8888`)
+  bot.user.setActivity(`${config_activity}`, { url: "https://www.twitch.tv/nitro", type: "STREAMING" })
 
 });
 
